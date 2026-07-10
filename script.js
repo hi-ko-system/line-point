@@ -17,11 +17,6 @@ document.getElementById("status");
 try{
 
 
-status.innerHTML =
-"로그인 확인 중...";
-
-
-
 await liff.init({
 
 liffId:LIFF_ID
@@ -33,7 +28,6 @@ liffId:LIFF_ID
 if(!liff.isLoggedIn()){
 
 liff.login();
-
 return;
 
 }
@@ -45,30 +39,16 @@ await liff.getProfile();
 
 
 
-const userId =
-profile.userId;
-
-
-const name =
-profile.displayName;
-
-
-
-status.innerHTML =
-"포인트 조회 중...";
-
-
-
 const url =
 API_URL
 +
 "?userId="
 +
-encodeURIComponent(userId)
+encodeURIComponent(profile.userId)
 +
 "&name="
 +
-encodeURIComponent(name);
+encodeURIComponent(profile.displayName);
 
 
 
@@ -82,8 +62,50 @@ await response.json();
 
 
 
-
 if(data.success){
+
+
+let chargeHTML = "";
+
+
+
+data.charges.forEach(item=>{
+
+chargeHTML +=
+`
+<div class="history-item">
+<div>${item.date}</div>
+<div class="plus">
++${Number(item.amount).toLocaleString()} P
+</div>
+<div>${item.memo}</div>
+</div>
+`;
+
+});
+
+
+
+
+let useHTML = "";
+
+
+
+data.uses.forEach(item=>{
+
+useHTML +=
+`
+<div class="history-item">
+<div>${item.date}</div>
+<div class="minus">
+-${Number(item.amount).toLocaleString()} P
+</div>
+<div>${item.memo}</div>
+</div>
+`;
+
+});
+
 
 
 
@@ -105,44 +127,31 @@ ${Number(data.point).toLocaleString()} P
 </div>
 
 
-<div class="message">
-포인트는 관리자 수정 후 자동 반영됩니다.
-</div>
+<h3>최근 충전 내역</h3>
+
+${chargeHTML || "내역 없음"}
+
+
+<h3>최근 사용 내역</h3>
+
+${useHTML || "내역 없음"}
 
 `;
 
 
 
-}else{
+}
 
+
+}catch(error){
 
 status.innerHTML =
-data.message;
-
-
-}
-
-
-
-}
-
-catch(error){
-
-
-console.error(error);
-
-
-status.innerHTML =
-"오류 발생<br>"
-+
-error;
-
+"오류 발생<br>"+error;
 
 }
 
 
 }
-
 
 
 main();
