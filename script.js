@@ -2,7 +2,7 @@ const LIFF_ID = "2010635678-Z0aQDE5T";
 
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbwbnqJ73xuufJp4VWnzWEhTNctS6J4q_LfdgLFoMa53bytouokK_5X3HrWrho5D9x-R/exec";
+"https://script.google.com/macros/s/AKfycbwJv-uJZakDqh4ryX83qet2ye9-00QsAalBnIMJkCphhOjqEKWC2wggiwoL8rrys1bi/exec";
 
 
 
