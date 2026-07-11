@@ -252,7 +252,7 @@ Number(student.point)
 .toLocaleString();
 
 
-loadStudentDetail(student.lineId);    
+   
 }
 
 
