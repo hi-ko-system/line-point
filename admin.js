@@ -538,9 +538,10 @@ ${item.date}
 <br>
 
 <button onclick="
-cancel('${item.type}',
-'${item.lineId}',
-${item.amount})
+cancel(
+'${item.type}',
+'${item.transactionNo}'
+)
 ">
 
 취소
@@ -563,7 +564,7 @@ box.appendChild(div);
 
 }
 
-async function cancel(type,lineId,amount){
+async function cancel(type,transactionNo){
 
 
 if(!confirm("정말 취소할까요?")){
@@ -574,9 +575,7 @@ return;
 
 
 
-const response =
-await fetch(
-
+const response = await fetch(
 API_URL
 +
 "?action=cancelTransaction"
@@ -585,16 +584,10 @@ API_URL
 +
 encodeURIComponent(type)
 +
-"&lineId="
+"&transactionNo="
 +
-encodeURIComponent(lineId)
-+
-"&amount="
-+
-amount
-
+encodeURIComponent(transactionNo)
 );
-
 
 
 const data =
