@@ -46,7 +46,8 @@ endDate
 
 const data =
 await response.json();
-
+  
+console.log(data);
 
 
 let charge=0;
