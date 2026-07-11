@@ -252,6 +252,7 @@ Number(student.point)
 .toLocaleString();
 
 
+loadStudentDetail(student.lineId);    
 }
 
 
@@ -615,6 +616,94 @@ alert("취소 실패");
 
 
 }
+
+
+}
+
+async function loadStudentDetail(lineId){
+
+
+const response =
+await fetch(
+API_URL
++
+"?action=getStudentDetail&lineId="
++
+encodeURIComponent(lineId)
+);
+
+
+
+const data =
+await response.json();
+
+
+
+const box =
+document.getElementById("studentDetail");
+
+
+
+box.innerHTML=`
+
+<h3>${data.name}</h3>
+
+<p>
+현재 포인트:
+<b>${Number(data.point).toLocaleString()}P</b>
+</p>
+
+
+<p>
+총 충전:
+${Number(data.totalCharge).toLocaleString()}P
+</p>
+
+
+<p>
+총 사용:
+${Number(data.totalUse).toLocaleString()}P
+</p>
+
+
+<hr>
+
+
+<h4>최근 거래</h4>
+
+${
+data.histories.map(item=>`
+
+<div>
+
+${item.transactionNo}
+
+<br>
+
+${item.type}
+
+${item.type==="충전"?"+":"-"}
+
+${Number(item.amount).toLocaleString()}P
+
+<br>
+
+${item.memo}
+
+<br>
+
+${item.date}
+
+</div>
+
+<hr>
+
+`).join("")
+}
+
+
+`;
+
 
 
 }
