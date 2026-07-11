@@ -44,7 +44,7 @@ document.getElementById("adminBox")
 .style.display="block";
 
 
-loadStudents();
+loadStudents(); loadHistory();
 
 
 
@@ -467,5 +467,150 @@ function selectType(value){
         .style.opacity="1";
 
     }
+
+}
+async function loadHistory(){
+
+
+const response =
+await fetch(
+API_URL
++
+"?action=getRecentHistory"
+);
+
+
+
+const data =
+await response.json();
+
+
+
+const box =
+document.getElementById("history");
+
+
+
+box.innerHTML="";
+
+
+
+data.history.forEach(item=>{
+
+
+const div =
+document.createElement("div");
+
+
+const sign =
+item.type==="충전"
+? "+"
+: "-";
+
+
+
+div.innerHTML =
+
+`
+<div>
+<b>${item.type}</b>
+<br>
+
+${sign}${Number(item.amount).toLocaleString()}P
+
+<br>
+
+${item.memo}
+
+<br>
+
+${item.date}
+
+<br>
+
+<button onclick="
+cancel('${item.type}',
+'${item.lineId}',
+${item.amount})
+">
+
+취소
+
+</button>
+
+</div>
+
+<hr>
+`;
+
+
+
+box.appendChild(div);
+
+
+
+});
+
+
+}
+
+async function cancel(type,lineId,amount){
+
+
+if(!confirm("정말 취소할까요?")){
+
+return;
+
+}
+
+
+
+const response =
+await fetch(
+
+API_URL
++
+"?action=cancelTransaction"
++
+"&type="
++
+encodeURIComponent(type)
++
+"&lineId="
++
+encodeURIComponent(lineId)
++
+"&amount="
++
+amount
+
+);
+
+
+
+const data =
+await response.json();
+
+
+
+if(data.success){
+
+alert("취소 완료");
+
+
+loadHistory();
+
+
+loadStudents();
+
+
+}else{
+
+
+alert("취소 실패");
+
+
+}
+
 
 }
