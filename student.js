@@ -156,3 +156,130 @@ box.appendChild(div);
 
 
 loadStudent();
+async function loadStudentHistory(){
+
+
+const startDate =
+document.getElementById("historyStart").value;
+
+
+const endDate =
+document.getElementById("historyEnd").value;
+
+
+
+if(!startDate || !endDate){
+
+alert("조회 기간을 선택해주세요");
+
+return;
+
+}
+
+
+
+const response =
+await fetch(
+
+API_URL
++
+"?action=searchStudentHistory"
++
+"&lineId="
++
+encodeURIComponent(lineId)
++
+"&startDate="
++
+startDate
++
+"&endDate="
++
+endDate
+
+);
+
+
+
+const data =
+await response.json();
+
+
+
+const box =
+document.getElementById(
+"studentHistoryResult"
+);
+
+
+box.innerHTML="";
+
+
+
+if(
+!data.history ||
+data.history.length===0
+){
+
+box.innerHTML=
+"거래 내역이 없습니다.";
+
+return;
+
+}
+
+
+
+data.history.forEach(item=>{
+
+
+const sign =
+item.type==="충전"
+?
+"+"
+:
+"-";
+
+
+
+const div =
+document.createElement("div");
+
+
+
+div.innerHTML=
+
+`
+
+<b>
+${item.transactionNo}
+</b>
+
+<br>
+
+${item.date}
+
+<br>
+
+${item.type}
+
+${sign}
+${Number(item.amount).toLocaleString()}P
+
+<br>
+
+${item.memo}
+
+<hr>
+
+`;
+
+
+
+box.appendChild(div);
+
+
+});
+
+
+}
