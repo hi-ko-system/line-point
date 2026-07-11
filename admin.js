@@ -455,13 +455,22 @@ function selectType(value){
     document.getElementById("type").value=value;
 
 
+    const expireBox =
+    document.getElementById("expireType").parentElement;
+
+
     if(value==="충전"){
+
 
         document.getElementById("chargeBtn")
         .style.opacity="1";
 
+
         document.getElementById("useBtn")
         .style.opacity="0.5";
+
+
+        expireBox.style.display="block";
 
 
     }else{
@@ -473,6 +482,10 @@ function selectType(value){
 
         document.getElementById("useBtn")
         .style.opacity="1";
+
+
+        expireBox.style.display="none";
+
 
     }
 
