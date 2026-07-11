@@ -140,7 +140,7 @@ const response =
 await fetch(
 API_URL
 +
-"?action=getExpiringPoints"
+"?action=getExpiringPointsSummary"
 +
 "&days="
 +
@@ -192,12 +192,7 @@ div.innerHTML=
 
 <br>
 
-만료일 :
-${item.expire}
-
-<br>
-
-예정 포인트 :
+만료 예정 포인트 :
 ${Number(item.amount).toLocaleString()}P
 
 `;
