@@ -208,3 +208,116 @@ box.appendChild(div);
 
 }
 
+
+
+
+async function loadStudentHistory(){
+
+
+const lineId =
+document.getElementById("historyStudent").value;
+
+
+const startDate =
+document.getElementById("historyStart").value;
+
+
+const endDate =
+document.getElementById("historyEnd").value;
+
+
+
+if(!lineId){
+
+alert("학생을 선택해주세요");
+
+return;
+
+}
+
+
+
+const response =
+await fetch(
+
+API_URL
++
+"?action=searchStudentHistory"
++
+"&lineId="
++
+encodeURIComponent(lineId)
++
+"&startDate="
++
+startDate
++
+"&endDate="
++
+endDate
+
+);
+
+
+
+const data =
+await response.json();
+
+
+
+const box =
+document.getElementById("studentHistoryResult");
+
+
+box.innerHTML="";
+
+
+
+data.history.forEach(item=>{
+
+
+const sign =
+item.type==="충전"
+?
+"+"
+:
+"-";
+
+
+
+box.innerHTML +=
+
+`
+<hr>
+
+날짜 :
+${item.date}
+
+<br>
+
+거래번호 :
+${item.transactionNo}
+
+<br>
+
+${item.type}
+
+<br>
+
+${sign}${Number(item.amount).toLocaleString()}P
+
+<br>
+
+${item.memo}
+
+`;
+
+
+
+});
+
+
+}
+
+
+
