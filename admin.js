@@ -293,7 +293,8 @@ document.getElementById("amount").value
 const memo =
 document.getElementById("memo").value;
 
-
+const expireDate =
+document.getElementById("expireDate").value;
 
 
 
@@ -379,7 +380,11 @@ amount
 +
 "&memo="
 +
-encodeURIComponent(memo);
+encodeURIComponent(memo)
++
+"&expireDate="
++
+encodeURIComponent(expireDate);
 
 
 
@@ -665,5 +670,39 @@ window.open(
 
 );
 
+
+}
+
+
+function changeExpireType(){
+
+    const type =
+    document.getElementById("expireType").value;
+
+    if(type==="custom"){
+        return;
+    }
+
+    const days = Number(type);
+
+    const date = new Date();
+
+    date.setDate(date.getDate() + days);
+
+    const yyyy = date.getFullYear();
+
+    const mm = String(date.getMonth()+1).padStart(2,"0");
+
+    const dd = String(date.getDate()).padStart(2,"0");
+
+    document.getElementById("expireDate").value =
+    `${yyyy}-${mm}-${dd}`;
+
+}
+
+
+window.onload = function(){
+
+    changeExpireType();
 
 }
