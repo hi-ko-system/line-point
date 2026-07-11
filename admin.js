@@ -4,12 +4,17 @@ const API_URL =
 
 let students=[];
 
+let selectedStudent=null;
+
+
 
 
 async function login(){
 
+
 const password =
 document.getElementById("password").value;
+
 
 
 const response =
@@ -22,12 +27,14 @@ encodeURIComponent(password)
 );
 
 
+
 const data =
 await response.json();
 
 
 
 if(data.success){
+
 
 document.getElementById("loginBox")
 .style.display="none";
@@ -40,13 +47,19 @@ document.getElementById("adminBox")
 loadStudents();
 
 
+
 }else{
+
 
 alert(data.message);
 
-}
 
 }
+
+
+}
+
+
 
 
 
@@ -64,8 +77,10 @@ API_URL
 );
 
 
+
 const data =
 await response.json();
+
 
 
 students=data.students;
@@ -76,11 +91,13 @@ const select =
 document.getElementById("studentSelect");
 
 
-select.innerHTML="";
+
+select.innerHTML =
+"<option>학생을 선택하세요</option>";
 
 
 
-students.forEach((s,index)=>{
+students.forEach((student,index)=>{
 
 
 const option =
@@ -91,7 +108,7 @@ option.value=index;
 
 
 option.text =
-`${s.name} (${Number(s.point).toLocaleString()}P)`;
+`${student.name} (${Number(student.point).toLocaleString()}P)`;
 
 
 select.appendChild(option);
@@ -101,10 +118,22 @@ select.appendChild(option);
 
 
 
-select.onchange=updatePoint;
+select.onchange=function(){
 
 
-updatePoint();
+const index=this.value;
+
+
+if(index==="") return;
+
+
+selectStudent(
+students[index]
+);
+
+
+};
+
 
 
 }
@@ -114,22 +143,111 @@ updatePoint();
 
 
 
-function updatePoint(){
 
 
-const index =
-document.getElementById("studentSelect").value;
+function searchStudent(){
 
 
-if(!students[index]) return;
+const keyword =
+document.getElementById("search")
+.value.trim();
+
+
+
+const result =
+document.getElementById("searchResult");
+
+
+
+result.innerHTML="";
+
+
+
+if(!keyword){
+
+return;
+
+}
+
+
+
+students
+.filter(s=>s.name.includes(keyword))
+.forEach(student=>{
+
+
+const div =
+document.createElement("div");
+
+
+
+div.style.padding="10px";
+
+div.style.borderBottom=
+"1px solid #ddd";
+
+div.style.cursor="pointer";
+
+
+
+div.innerHTML=
+
+`
+${student.name}
+<br>
+${Number(student.point).toLocaleString()}P
+`;
+
+
+
+div.onclick=function(){
+
+
+selectStudent(student);
+
+
+result.innerHTML="";
+
+
+document.getElementById("search")
+.value="";
+
+
+};
+
+
+result.appendChild(div);
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+function selectStudent(student){
+
+
+selectedStudent=student;
+
+
+
+document.getElementById("selectedName")
+.innerText=
+student.name;
 
 
 
 document.getElementById("currentPoint")
-.innerText =
-Number(
-students[index].point
-)
+.innerText=
+Number(student.point)
 .toLocaleString();
 
 
@@ -141,16 +259,20 @@ students[index].point
 
 
 
+
 async function save(){
 
 
-const index =
-document.getElementById("studentSelect").value;
+
+if(!selectedStudent){
 
 
+alert("학생을 선택해주세요");
 
-const student =
-students[index];
+return;
+
+
+}
 
 
 
@@ -172,9 +294,11 @@ document.getElementById("memo").value;
 
 
 
+
 if(!amount || amount<=0){
 
 alert("금액을 입력해주세요");
+
 return;
 
 }
@@ -183,23 +307,26 @@ return;
 
 
 
-// 사용 시 잔액 체크
 
 if(
 type==="사용"
 &&
-amount > Number(student.point)
+amount > Number(selectedStudent.point)
 ){
+
 
 alert(
 "잔액 부족입니다.\n현재 잔액: "
 +
-Number(student.point).toLocaleString()
+Number(selectedStudent.point)
+.toLocaleString()
 +
 "P"
 );
 
+
 return;
+
 
 }
 
@@ -209,28 +336,22 @@ return;
 
 
 
-const confirmText =
-
+if(
+!confirm(
 type
 +
-"\n\n"
+"\n"
 +
-Number(amount).toLocaleString()
+Number(amount)
+.toLocaleString()
 +
-"P\n\n"
-+
-memo
-+
-"\n\n저장할까요?";
-
-
-
-if(!confirm(confirmText)){
+"P\n저장할까요?"
+)
+){
 
 return;
 
 }
-
 
 
 
@@ -244,7 +365,7 @@ API_URL
 +
 "&lineId="
 +
-encodeURIComponent(student.lineId)
+encodeURIComponent(selectedStudent.lineId)
 +
 "&type="
 +
@@ -273,25 +394,25 @@ await response.json();
 
 
 
-const result =
-document.getElementById("result");
-
-
 
 
 if(data.success){
 
 
-result.innerHTML =
-"✅ 처리 완료";
+document.getElementById("result")
+.innerHTML=
+"✅ 저장 완료";
 
 
 
 document.getElementById("currentPoint")
-.innerText =
+.innerText=
 Number(data.point)
 .toLocaleString();
 
+
+
+selectedStudent.point=data.point;
 
 
 
@@ -305,12 +426,11 @@ loadStudents();
 
 
 
-
-
 }else{
 
 
-result.innerHTML =
+document.getElementById("result")
+.innerHTML=
 "❌ "
 +
 data.message;
