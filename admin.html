@@ -8,7 +8,7 @@
 
 <title>포인트 관리자</title>
 
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=9">
 
 </head>
 
@@ -20,6 +20,7 @@
 
 
 <h1>포인트 관리</h1>
+
 
 
 <div id="loginBox">
@@ -45,17 +46,59 @@ placeholder="비밀번호">
 
 
 
+
 <div id="adminBox" style="display:none;">
+
 
 
 <h3>학생 선택</h3>
 
 
-<select id="studentSelect"></select>
+
+<!-- 검색 -->
+
+<input
+id="search"
+placeholder="이름 검색"
+oninput="searchStudent()">
+
+
+
+<div id="searchResult"></div>
+
+
+
+
+
+<!-- 전체 선택 -->
+
+<select id="studentSelect">
+
+<option>
+학생을 선택하세요
+</option>
+
+</select>
+
+
+
 
 
 
 <div class="point">
+
+
+선택 학생
+
+<br>
+
+<span id="selectedName">
+없음
+</span>
+
+
+<br><br>
+
 
 현재 잔액
 
@@ -64,9 +107,14 @@ placeholder="비밀번호">
 <span id="currentPoint">
 0
 </span>
+
 P
 
+
 </div>
+
+
+
 
 
 
@@ -75,6 +123,7 @@ P
 
 
 <select id="type">
+
 
 <option value="충전">
 충전
@@ -91,6 +140,8 @@ P
 
 
 
+
+
 <h3>금액</h3>
 
 
@@ -98,6 +149,7 @@ P
 id="amount"
 type="number"
 placeholder="금액 입력">
+
 
 
 
@@ -111,9 +163,12 @@ placeholder="내용 입력">
 
 
 
+
+
 <button onclick="save()">
 저장
 </button>
+
 
 
 
@@ -121,16 +176,6 @@ placeholder="내용 입력">
 
 
 
-<h3>최근 처리</h3>
-
-
-<div id="historyBox">
-
-아직 처리 내역 없음
-
-</div>
-
-
 
 </div>
 
@@ -139,7 +184,8 @@ placeholder="내용 입력">
 
 
 
-<script src="admin.js?v=2"></script>
+
+<script src="admin.js?v=4"></script>
 
 
 </body>
