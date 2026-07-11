@@ -517,6 +517,11 @@ div.innerHTML =
 
 <br>
 
+거래번호:
+${item.transactionNo || ""}
+
+<br>
+
 ${item.type}
 
 <br>
