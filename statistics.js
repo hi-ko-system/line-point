@@ -1,6 +1,6 @@
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwJv-uJZakDqh4ryX83qet2ye9-00QsAalBnIMJkCphhOjqEKWC2wggiwoL8rrys1bi/exec";
-
+let statisticsStudents = [];
 
 
 
@@ -319,5 +319,61 @@ ${item.memo}
 
 }
 
+async function loadHistoryStudents(){
 
+
+const response =
+await fetch(
+API_URL
++
+"?action=getStudents"
+);
+
+
+
+const data =
+await response.json();
+
+
+
+statisticsStudents =
+data.students;
+
+
+
+const select =
+document.getElementById(
+"historyStudent"
+);
+
+
+
+statisticsStudents.forEach(student=>{
+
+
+const option =
+document.createElement("option");
+
+
+option.value =
+student.lineId;
+
+
+option.text =
+student.name;
+
+
+select.appendChild(option);
+
+
+});
+
+
+}
+
+window.onload=function(){
+
+loadHistoryStudents();
+
+};
 
