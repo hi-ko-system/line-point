@@ -648,39 +648,55 @@ document.getElementById("studentDetail");
 
 box.innerHTML=`
 
-<h3>${data.name}</h3>
-
-<p>
-현재 포인트:
-<b>${Number(data.point).toLocaleString()}P</b>
-</p>
+<h2>
+${data.name}
+</h2>
 
 
-<p>
+<div>
+현재 포인트
+<h1>
+${Number(data.point).toLocaleString()}P
+</h1>
+</div>
+
+
+<div>
 총 충전:
 ${Number(data.totalCharge).toLocaleString()}P
-</p>
 
+<br>
 
-<p>
 총 사용:
 ${Number(data.totalUse).toLocaleString()}P
-</p>
+
+</div>
 
 
 <hr>
 
 
-<h4>최근 거래</h4>
+<h3>
+최근 거래
+</h3>
+
 
 ${
 data.histories.map(item=>`
 
-<div>
+<div style="
+padding:10px;
+border-bottom:1px solid #ddd;
+">
 
+
+<b>
 ${item.transactionNo}
+</b>
+
 
 <br>
+
 
 ${item.type}
 
@@ -688,24 +704,26 @@ ${item.type==="충전"?"+":"-"}
 
 ${Number(item.amount).toLocaleString()}P
 
+
 <br>
+
 
 ${item.memo}
 
+
 <br>
 
+
+<small>
 ${item.date}
+</small>
+
 
 </div>
 
-<hr>
 
 `).join("")
 }
 
 
 `;
-
-
-
-}
