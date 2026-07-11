@@ -651,3 +651,19 @@ selectedStudent.lineId
 
 
 }
+
+
+
+function openStatistics(){
+
+
+window.open(
+
+"statistics.html",
+
+"_blank"
+
+);
+
+
+}
