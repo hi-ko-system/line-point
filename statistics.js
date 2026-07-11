@@ -131,3 +131,85 @@ use.toLocaleString()+"P";
 
 
 }
+
+
+async function loadExpirePoints(days){
+
+
+const response =
+await fetch(
+API_URL
++
+"?action=getExpiringPoints"
++
+"&days="
++
+days
+);
+
+
+
+const data =
+await response.json();
+
+
+
+const box =
+document.getElementById("expireResult");
+
+
+box.innerHTML="";
+
+
+
+if(
+!data.points ||
+data.points.length===0
+){
+
+box.innerHTML=
+"만료 예정 포인트가 없습니다.";
+
+return;
+
+}
+
+
+
+data.points.forEach(item=>{
+
+
+const div =
+document.createElement("div");
+
+
+div.innerHTML=
+
+`
+<hr>
+
+<b>${item.name}</b>
+
+<br>
+
+만료일 :
+${item.expire}
+
+<br>
+
+예정 포인트 :
+${Number(item.amount).toLocaleString()}P
+
+`;
+
+
+
+box.appendChild(div);
+
+
+
+});
+
+
+}
+
