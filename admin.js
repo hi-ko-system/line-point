@@ -441,3 +441,31 @@ data.message;
 
 
 }
+
+function selectType(value){
+
+    document.getElementById("type").value=value;
+
+
+    if(value==="충전"){
+
+        document.getElementById("chargeBtn")
+        .style.opacity="1";
+
+        document.getElementById("useBtn")
+        .style.opacity="0.5";
+
+
+    }else{
+
+
+        document.getElementById("chargeBtn")
+        .style.opacity="0.5";
+
+
+        document.getElementById("useBtn")
+        .style.opacity="1";
+
+    }
+
+}
