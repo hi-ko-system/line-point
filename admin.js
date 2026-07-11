@@ -456,7 +456,7 @@ function selectType(value){
 
 
     const expireBox =
-document.getElementById("expireBox");
+    document.getElementById("expireBox");
 
 
     if(value==="충전"){
