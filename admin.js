@@ -44,7 +44,8 @@ document.getElementById("adminBox")
 .style.display="block";
 
 
-loadStudents(); loadHistory();
+loadStudents(); 
+loadHistory();
 
 
 
@@ -423,7 +424,8 @@ document.getElementById("memo").value="";
 
 
 loadStudents();
-
+    
+loadHistory();
 
 
 }else{
