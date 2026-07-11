@@ -201,7 +201,18 @@ id="memo"
 placeholder="내용 입력">
 
 
+<h3>유효기간</h3>
 
+<select id="expireType" onchange="changeExpireType()">
+    <option value="30">30일</option>
+    <option value="60">60일</option>
+    <option value="120">120일</option>
+    <option value="custom">직접 입력</option>
+</select>
+
+<input
+type="date"
+id="expireDate">
 
 
 <button
