@@ -513,7 +513,12 @@ div.innerHTML =
 
 `
 <div>
-<b>${item.type}</b>
+<b>${item.name}</b>
+
+<br>
+
+${item.type}
+
 <br>
 
 ${sign}${Number(item.amount).toLocaleString()}P
@@ -521,7 +526,6 @@ ${sign}${Number(item.amount).toLocaleString()}P
 <br>
 
 ${item.memo}
-
 <br>
 
 ${item.date}
