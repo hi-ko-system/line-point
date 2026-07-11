@@ -620,3 +620,34 @@ alert("취소 실패");
 
 }
 
+
+function openStudentDetail(){
+
+
+if(!selectedStudent){
+
+
+alert("학생을 선택해주세요");
+
+
+return;
+
+
+}
+
+
+
+window.open(
+
+"student.html?lineId="
++
+encodeURIComponent(
+selectedStudent.lineId
+),
+
+"_blank"
+
+);
+
+
+}
