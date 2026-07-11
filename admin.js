@@ -455,8 +455,11 @@ function selectType(value){
     document.getElementById("type").value=value;
 
 
-    const expireBox =
-    document.getElementById("expireType").parentElement;
+    const expireSelect =
+    document.getElementById("expireType");
+
+    const expireDate =
+    document.getElementById("expireDate");
 
 
     if(value==="충전"){
@@ -470,7 +473,9 @@ function selectType(value){
         .style.opacity="0.5";
 
 
-        expireBox.style.display="block";
+        expireSelect.style.display="block";
+
+        expireDate.style.display="block";
 
 
     }else{
@@ -484,7 +489,9 @@ function selectType(value){
         .style.opacity="1";
 
 
-        expireBox.style.display="none";
+        expireSelect.style.display="none";
+
+        expireDate.style.display="none";
 
 
     }
