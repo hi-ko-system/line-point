@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>포인트 통계</title>
+
+<link rel="stylesheet" href="admin.css?v=1">
+
+</head>
+
+
+<body>
+
+
+<div class="admin-container">
+
+
+<h1>
+포인트 통계
+</h1>
+
+
+
+<div class="card">
+
+<h3>
+기간 검색
+</h3>
+
+
+<input
+id="startDate"
+type="date">
+
+
+<input
+id="endDate"
+type="date">
+
+
+<button onclick="search()">
+
+검색
+
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+기간 통계
+</h3>
+
+
+<p>
+총 충전
+
+<br>
+
+<b id="totalCharge">
+0P
+</b>
+
+</p>
+
+
+<p>
+총 사용
+
+<br>
+
+<b id="totalUse">
+0P
+</b>
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+<h3>
+미사용 포인트 현황
+</h3>
+
+
+<div id="unused">
+
+불러오는 중...
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+<h3>
+거래 내역
+
+</h3>
+
+
+<div id="history">
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+<script src="statistics.js?v=1"></script>
+
+
+</body>
+
+</html>
