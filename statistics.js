@@ -377,3 +377,75 @@ loadHistoryStudents();
 
 };
 
+async function loadUnusedPoints(days){
+
+
+const response =
+await fetch(
+API_URL
++
+"?action=getUnusedPoints"
++
+"&days="
++
+days
+);
+
+
+
+const data =
+await response.json();
+
+
+
+const box =
+document.getElementById("unused");
+
+
+box.innerHTML="";
+
+
+
+if(
+!data.points ||
+data.points.length===0
+){
+
+box.innerHTML=
+"해당 조건의 학생이 없습니다.";
+
+return;
+
+}
+
+
+
+data.points.forEach(item=>{
+
+
+box.innerHTML +=
+
+`
+
+<hr>
+
+<b>
+${item.name}
+</b>
+
+<br>
+
+남은 포인트 :
+${Number(item.amount).toLocaleString()}P
+
+<br>
+
+마지막 사용일 :
+${item.lastUse}
+
+`;
+
+});
+
+
+}
