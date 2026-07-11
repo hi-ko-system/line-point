@@ -2,18 +2,14 @@ const API_URL =
 "https://script.google.com/macros/s/AKfycbwJv-uJZakDqh4ryX83qet2ye9-00QsAalBnIMJkCphhOjqEKWC2wggiwoL8rrys1bi/exec";
 
 
-
 let students=[];
-
 
 
 
 async function login(){
 
-
 const password =
 document.getElementById("password").value;
-
 
 
 const response =
@@ -26,14 +22,12 @@ encodeURIComponent(password)
 );
 
 
-
 const data =
 await response.json();
 
 
 
 if(data.success){
-
 
 document.getElementById("loginBox")
 .style.display="none";
@@ -46,18 +40,13 @@ document.getElementById("adminBox")
 loadStudents();
 
 
-
 }else{
-
 
 alert(data.message);
 
-
 }
 
-
 }
-
 
 
 
@@ -75,10 +64,8 @@ API_URL
 );
 
 
-
 const data =
 await response.json();
-
 
 
 students=data.students;
@@ -87,7 +74,6 @@ students=data.students;
 
 const select =
 document.getElementById("studentSelect");
-
 
 
 select.innerHTML="";
@@ -118,7 +104,6 @@ select.appendChild(option);
 select.onchange=updatePoint;
 
 
-
 updatePoint();
 
 
@@ -129,15 +114,11 @@ updatePoint();
 
 
 
-
-
 function updatePoint(){
 
 
 const index =
-document.getElementById("studentSelect")
-.value;
-
+document.getElementById("studentSelect").value;
 
 
 if(!students[index]) return;
@@ -160,13 +141,11 @@ students[index].point
 
 
 
-
 async function save(){
 
 
 const index =
-document.getElementById("studentSelect")
-.value;
+document.getElementById("studentSelect").value;
 
 
 
@@ -176,8 +155,7 @@ students[index];
 
 
 const type =
-document.getElementById("type")
-.value;
+document.getElementById("type").value;
 
 
 
@@ -193,12 +171,69 @@ document.getElementById("memo").value;
 
 
 
+
 if(!amount || amount<=0){
 
 alert("금액을 입력해주세요");
 return;
 
 }
+
+
+
+
+
+// 사용 시 잔액 체크
+
+if(
+type==="사용"
+&&
+amount > Number(student.point)
+){
+
+alert(
+"잔액 부족입니다.\n현재 잔액: "
++
+Number(student.point).toLocaleString()
++
+"P"
+);
+
+return;
+
+}
+
+
+
+
+
+
+
+const confirmText =
+
+type
++
+"\n\n"
++
+Number(amount).toLocaleString()
++
+"P\n\n"
++
+memo
++
+"\n\n저장할까요?";
+
+
+
+if(!confirm(confirmText)){
+
+return;
+
+}
+
+
+
+
 
 
 
@@ -225,6 +260,8 @@ encodeURIComponent(memo);
 
 
 
+
+
 const response =
 await fetch(url);
 
@@ -235,8 +272,10 @@ await response.json();
 
 
 
+
 const result =
 document.getElementById("result");
+
 
 
 
@@ -244,7 +283,8 @@ if(data.success){
 
 
 result.innerHTML =
-"✅ 저장 완료";
+"✅ 처리 완료";
+
 
 
 document.getElementById("currentPoint")
@@ -252,17 +292,6 @@ document.getElementById("currentPoint")
 Number(data.point)
 .toLocaleString();
 
-
-
-document.getElementById("historyBox")
-.innerHTML =
-
-`
-${student.name}<br>
-${type} :
-${Number(amount).toLocaleString()}P<br>
-${memo}
-`;
 
 
 
@@ -276,6 +305,8 @@ loadStudents();
 
 
 
+
+
 }else{
 
 
@@ -286,6 +317,7 @@ data.message;
 
 
 }
+
 
 
 }
