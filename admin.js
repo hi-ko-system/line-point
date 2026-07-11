@@ -1,4 +1,3 @@
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwJv-uJZakDqh4ryX83qet2ye9-00QsAalBnIMJkCphhOjqEKWC2wggiwoL8rrys1bi/exec";
 
@@ -45,6 +44,7 @@ document.getElementById("adminBox")
 
 
 loadStudents();
+
 
 
 }else{
@@ -104,8 +104,8 @@ document.createElement("option");
 option.value=index;
 
 
-option.text=
-s.name;
+option.text =
+`${s.name} (${Number(s.point).toLocaleString()}P)`;
 
 
 select.appendChild(option);
@@ -130,6 +130,7 @@ updatePoint();
 
 
 
+
 function updatePoint(){
 
 
@@ -139,11 +140,16 @@ document.getElementById("studentSelect")
 
 
 
+if(!students[index]) return;
+
+
+
 document.getElementById("currentPoint")
 .innerText =
 Number(
 students[index].point
-).toLocaleString();
+)
+.toLocaleString();
 
 
 }
@@ -176,14 +182,23 @@ document.getElementById("type")
 
 
 const amount =
-document.getElementById("amount")
-.value;
+Number(
+document.getElementById("amount").value
+);
 
 
 
 const memo =
-document.getElementById("memo")
-.value;
+document.getElementById("memo").value;
+
+
+
+if(!amount || amount<=0){
+
+alert("금액을 입력해주세요");
+return;
+
+}
 
 
 
@@ -202,7 +217,7 @@ encodeURIComponent(type)
 +
 "&amount="
 +
-encodeURIComponent(amount)
+amount
 +
 "&memo="
 +
@@ -220,16 +235,41 @@ await response.json();
 
 
 
+const result =
+document.getElementById("result");
+
+
+
 if(data.success){
 
 
-alert("저장 완료");
+result.innerHTML =
+"✅ 저장 완료";
 
 
 document.getElementById("currentPoint")
 .innerText =
 Number(data.point)
 .toLocaleString();
+
+
+
+document.getElementById("historyBox")
+.innerHTML =
+
+`
+${student.name}<br>
+${type} :
+${Number(amount).toLocaleString()}P<br>
+${memo}
+`;
+
+
+
+document.getElementById("amount").value="";
+
+document.getElementById("memo").value="";
+
 
 
 loadStudents();
@@ -239,7 +279,10 @@ loadStudents();
 }else{
 
 
-alert(data.message);
+result.innerHTML =
+"❌ "
++
+data.message;
 
 
 }
