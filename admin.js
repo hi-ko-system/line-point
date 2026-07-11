@@ -636,9 +636,11 @@ encodeURIComponent(lineId)
 
 const data =
 await response.json();
+    
 
+console.log(data);
 
-
+    
 const box =
 document.getElementById("studentDetail");
 
