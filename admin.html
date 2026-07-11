@@ -1,1 +1,130 @@
 
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>포인트 관리자</title>
+
+<link rel="stylesheet" href="style.css?v=6">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>포인트 관리</h1>
+
+
+<div id="loginBox">
+
+
+<h3>관리자 로그인</h3>
+
+
+<input
+id="password"
+type="password"
+placeholder="비밀번호">
+
+
+<button onclick="login()">
+로그인
+</button>
+
+
+</div>
+
+
+
+
+
+<div id="adminBox" style="display:none;">
+
+
+<h3>학생 선택</h3>
+
+
+<select id="studentSelect"></select>
+
+
+<div class="point">
+
+현재 잔액
+
+<br>
+
+<span id="currentPoint">
+0
+</span>
+P
+
+</div>
+
+
+
+<h3>구분</h3>
+
+
+<select id="type">
+
+<option>
+충전
+</option>
+
+<option>
+사용
+</option>
+
+</select>
+
+
+
+<h3>금액</h3>
+
+
+<input
+id="amount"
+type="number"
+placeholder="금액">
+
+
+
+<h3>내용</h3>
+
+
+<input
+id="memo"
+placeholder="내용">
+
+
+
+<button onclick="save()">
+저장
+</button>
+
+
+<div id="result"></div>
+
+
+
+</div>
+
+
+</div>
+
+
+<script src="admin.js?v=1"></script>
+
+
+</body>
+
+
+</html>
