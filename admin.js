@@ -44,9 +44,13 @@ document.getElementById("adminBox")
 .style.display="block";
 
 
-loadStudents(); 
-loadHistory();
+setTimeout(function(){
 
+    loadStudents();
+
+    loadHistory();
+
+},100);
 
 
 }else{
